@@ -1,0 +1,318 @@
+{
+  "description": "Control Safari application through AppleScript with full class hierarchy support",
+  "dxt_version": "0.1",
+  "version": "0.1.0",
+  "long_description": "This enhanced extension allows you to control Safari through its official AppleScript API with complete class hierarchy support. Property getters and setters now include the full object path for precise targeting. Includes static data functions for exploring the application's complete class structure and command mappings.",
+  "author": {
+    "name": "StarDAE",
+    "email": "support@stardae.com"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.js"
+      ],
+      "env": {
+        "dummy": "temp"
+      }
+    }
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "display_name": "Safari (AppleScript)",
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "npx @anthropic-ai/dxt pack"
+  },
+  "tools": [
+    {
+      "name": "open",
+      "description": "Open a document."
+    },
+    {
+      "name": "close_document",
+      "description": "Close a document."
+    },
+    {
+      "name": "close_tab_of_window",
+      "description": "Close a tab of window."
+    },
+    {
+      "name": "close_window",
+      "description": "Close a window."
+    },
+    {
+      "name": "save_document",
+      "description": "Save a document."
+    },
+    {
+      "name": "save_window",
+      "description": "Save a window."
+    },
+    {
+      "name": "print_document",
+      "description": "Print a document."
+    },
+    {
+      "name": "print_window",
+      "description": "Print a window."
+    },
+    {
+      "name": "quit",
+      "description": "Quit the application."
+    },
+    {
+      "name": "count_document",
+      "description": "Return the number of elements of a particular class within a document."
+    },
+    {
+      "name": "count_tab_of_window",
+      "description": "Return the number of elements of a particular class within a tab of window."
+    },
+    {
+      "name": "count_window",
+      "description": "Return the number of elements of a particular class within a window."
+    },
+    {
+      "name": "delete",
+      "description": "Delete an object."
+    },
+    {
+      "name": "duplicate",
+      "description": "Copy an object."
+    },
+    {
+      "name": "exists",
+      "description": "Verify that an object exists."
+    },
+    {
+      "name": "make_document",
+      "description": "Create a new document."
+    },
+    {
+      "name": "make_tab_of_window",
+      "description": "Create a new tab of window."
+    },
+    {
+      "name": "make_window",
+      "description": "Create a new window."
+    },
+    {
+      "name": "move",
+      "description": "Move an object to a new location."
+    },
+    {
+      "name": "get_name_of_application",
+      "description": "Get The name of the application."
+    },
+    {
+      "name": "get_frontmost_of_application",
+      "description": "Get Is this the active application?"
+    },
+    {
+      "name": "get_version_of_application",
+      "description": "Get The version number of the application."
+    },
+    {
+      "name": "get_name_of_document",
+      "description": "Get Its name. of document"
+    },
+    {
+      "name": "get_modified_of_document",
+      "description": "Get Has it been modified since the last save? of document"
+    },
+    {
+      "name": "get_file_of_document",
+      "description": "Get Its location on disk, if it has one. of document"
+    },
+    {
+      "name": "get_name_of_window",
+      "description": "Get The title of the window."
+    },
+    {
+      "name": "get_id_of_window",
+      "description": "Get The unique identifier of the window."
+    },
+    {
+      "name": "get_index_of_window",
+      "description": "Get The index of the window, ordered front to back."
+    },
+    {
+      "name": "set_index_of_window",
+      "description": "Set The index of the window, ordered front to back."
+    },
+    {
+      "name": "get_bounds_of_window",
+      "description": "Get The bounding rectangle of the window."
+    },
+    {
+      "name": "set_bounds_of_window",
+      "description": "Set The bounding rectangle of the window."
+    },
+    {
+      "name": "get_closeable_of_window",
+      "description": "Get Does the window have a close button?"
+    },
+    {
+      "name": "get_miniaturizable_of_window",
+      "description": "Get Does the window have a minimize button?"
+    },
+    {
+      "name": "get_miniaturized_of_window",
+      "description": "Get Is the window minimized right now?"
+    },
+    {
+      "name": "set_miniaturized_of_window",
+      "description": "Set Is the window minimized right now?"
+    },
+    {
+      "name": "get_resizable_of_window",
+      "description": "Get Can the window be resized?"
+    },
+    {
+      "name": "get_visible_of_window",
+      "description": "Get Is the window visible right now?"
+    },
+    {
+      "name": "set_visible_of_window",
+      "description": "Set Is the window visible right now?"
+    },
+    {
+      "name": "get_zoomable_of_window",
+      "description": "Get Does the window have a zoom button?"
+    },
+    {
+      "name": "get_zoomed_of_window",
+      "description": "Get Is the window zoomed right now?"
+    },
+    {
+      "name": "set_zoomed_of_window",
+      "description": "Set Is the window zoomed right now?"
+    },
+    {
+      "name": "get_document_of_window",
+      "description": "Get The document whose contents are displayed in the window."
+    },
+    {
+      "name": "add_reading_list_item",
+      "description": "Add a new Reading List item with the given URL. Allows a custom title and preview text to be specified."
+    },
+    {
+      "name": "do_javascript_document",
+      "description": "Applies a string of JavaScript code to a document."
+    },
+    {
+      "name": "do_javascript_tab_of_window",
+      "description": "Applies a string of JavaScript code to a tab of window."
+    },
+    {
+      "name": "search_the_web_document",
+      "description": "Searches the web using Safari's current search provider for document."
+    },
+    {
+      "name": "search_the_web_tab_of_window",
+      "description": "Searches the web using Safari's current search provider for tab of window."
+    },
+    {
+      "name": "show_bookmarks",
+      "description": "Shows Safari's bookmarks."
+    },
+    {
+      "name": "show_extensions_preferences",
+      "description": "Show Safari Extensions preferences."
+    },
+    {
+      "name": "dispatch_message_to_extension",
+      "description": "Dispatch a message to a Safari Extension."
+    },
+    {
+      "name": "sync_all_plist_to_disk",
+      "description": "Make sure that all in-memory structures are in-sync with their on-disk counterparts."
+    },
+    {
+      "name": "show_privacy_report",
+      "description": "Show Safari's Privacy Report"
+    },
+    {
+      "name": "show_credit_card_settings",
+      "description": "Show Safari Credit Card Settings."
+    },
+    {
+      "name": "get_current_tab_of_window",
+      "description": "Get The current tab. of window"
+    },
+    {
+      "name": "set_current_tab_of_window",
+      "description": "Set The current tab. of window"
+    },
+    {
+      "name": "get_source_of_document",
+      "description": "Get The HTML source of the web page currently loaded in the document."
+    },
+    {
+      "name": "get_url_of_document",
+      "description": "Get The current URL of the document."
+    },
+    {
+      "name": "set_url_of_document",
+      "description": "Set The current URL of the document."
+    },
+    {
+      "name": "get_text_of_document",
+      "description": "Get The text of the web page currently loaded in the document. Modifications to text aren't reflected on the web page."
+    },
+    {
+      "name": "get_source_of_tab_of_window",
+      "description": "Get The HTML source of the web page currently loaded in the tab."
+    },
+    {
+      "name": "get_url_of_tab_of_window",
+      "description": "Get The current URL of the tab."
+    },
+    {
+      "name": "set_url_of_tab_of_window",
+      "description": "Set The current URL of the tab."
+    },
+    {
+      "name": "get_index_of_tab_of_window",
+      "description": "Get The index of the tab, ordered left to right."
+    },
+    {
+      "name": "get_text_of_tab_of_window",
+      "description": "Get The text of the web page currently loaded in the tab. Modifications to text aren't reflected on the web page."
+    },
+    {
+      "name": "get_visible_of_tab_of_window",
+      "description": "Get Whether the tab is currently visible."
+    },
+    {
+      "name": "get_name_of_tab_of_window",
+      "description": "Get The name of the tab."
+    },
+    {
+      "name": "get_pid_of_tab_of_window",
+      "description": "Get The pid of the WebContent process backing the tab, if it exists."
+    }
+  ],
+  "keywords": [
+    "safari",
+    "applescript",
+    "automation",
+    "hierarchy",
+    "static-data",
+    "class-structure"
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin"
+    ]
+  },
+  "name": "safari-applescript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stardae/safari-applescript"
+  }
+}
