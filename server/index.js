@@ -218,7 +218,7 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'close_document',
+  name: 'close_for_document',
   description: 'Close a document.',
   inputSchema: {
     type: 'object',
@@ -241,7 +241,7 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'close_tab_of_window',
+  name: 'close_for_tab_of_window',
   description: 'Close a tab of window.',
   inputSchema: {
     type: 'object',
@@ -268,7 +268,7 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'close_window',
+  name: 'close_for_window',
   description: 'Close a window.',
   inputSchema: {
     type: 'object',
@@ -291,7 +291,7 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'save_document',
+  name: 'save_for_document',
   description: 'Save a document.',
   inputSchema: {
     type: 'object',
@@ -314,7 +314,7 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'save_window',
+  name: 'save_for_window',
   description: 'Save a window.',
   inputSchema: {
     type: 'object',
@@ -337,7 +337,30 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'print_document',
+  name: 'print_file',
+  description: 'Print a document. (file input)',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      direct_parameter_required_list_of_file: {
+        type: 'string',
+        description: 'The file(s), document(s), or window(s) to be printed.'
+      },
+      with_properties_optional_print_settings: {
+        type: 'string',
+        description: 'The print settings to use.'
+      },
+      print_dialog_optional_boolean: {
+        type: 'boolean',
+        description: 'Should the application show the print dialog?'
+      }
+    },
+    required: ['direct_parameter_required_list_of_file'],
+    additionalProperties: false
+  }
+},
+          {
+  name: 'print_for_document',
   description: 'Print a document.',
   inputSchema: {
     type: 'object',
@@ -360,7 +383,7 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'print_window',
+  name: 'print_for_window',
   description: 'Print a window.',
   inputSchema: {
     type: 'object',
@@ -964,7 +987,22 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'do_javascript_document',
+  name: 'do_javascript',
+  description: 'Applies a string of JavaScript code to a document.',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      direct_parameter_required_text: {
+        type: 'string',
+        description: 'The JavaScript code to evaluate.'
+      }
+    },
+    required: ['direct_parameter_required_text'],
+    additionalProperties: false
+  }
+},
+          {
+  name: 'do_javascript_for_document',
   description: 'Applies a string of JavaScript code to a document.',
   inputSchema: {
     type: 'object',
@@ -973,17 +1011,17 @@ class SafariMCPServer {
         type: 'string',
         description: 'The document object to access (e.g., \"front document\", \"document 1\")'
       },
-      inParam_optional_document: {
+      direct_parameter_required_text: {
         type: 'string',
-        description: 'The tab that the JavaScript should be evaluated in.'
+        description: 'The JavaScript code to evaluate.'
       }
     },
-    required: ['target_document_required_string'],
+    required: ['target_document_required_string', 'direct_parameter_required_text'],
     additionalProperties: false
   }
 },
           {
-  name: 'do_javascript_tab_of_window',
+  name: 'do_javascript_for_tab_of_window',
   description: 'Applies a string of JavaScript code to a tab of window.',
   inputSchema: {
     type: 'object',
@@ -996,9 +1034,53 @@ class SafariMCPServer {
         type: 'string',
         description: 'The window object to access (e.g., \"front window\", \"window 1\")'
       },
-      inParam_optional_document: {
+      direct_parameter_required_text: {
         type: 'string',
-        description: 'The tab that the JavaScript should be evaluated in.'
+        description: 'The JavaScript code to evaluate.'
+      }
+    },
+    required: ['target_tab_required_string', 'target_window_required_string', 'direct_parameter_required_text'],
+    additionalProperties: false
+  }
+},
+          {
+  name: 'email_contents',
+  description: 'Emails the contents of a tab.',
+  inputSchema: {
+    type: 'object',
+    properties: {
+    },
+    additionalProperties: false
+  }
+},
+          {
+  name: 'email_contents_for_document',
+  description: 'Emails the contents of a document.',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      target_document_required_string: {
+        type: 'string',
+        description: 'The document object to access (e.g., \"front document\", \"document 1\")'
+      }
+    },
+    required: ['target_document_required_string'],
+    additionalProperties: false
+  }
+},
+          {
+  name: 'email_contents_for_tab_of_window',
+  description: 'Emails the contents of a tab.',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      target_tab_required_string: {
+        type: 'string',
+        description: 'The tab object to access (e.g., \"front tab\", \"tab 1\")'
+      },
+      target_window_required_string: {
+        type: 'string',
+        description: 'The window object to access (e.g., \"front window\", \"window 1\")'
       }
     },
     required: ['target_tab_required_string', 'target_window_required_string'],
@@ -1006,7 +1088,22 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'search_the_web_document',
+  name: 'search_the_web',
+  description: 'Searches the web using Safari\'s current search provider.',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      forParam_required_text: {
+        type: 'string',
+        description: 'The query to search for.'
+      }
+    },
+    required: ['forParam_required_text'],
+    additionalProperties: false
+  }
+},
+          {
+  name: 'search_the_web_for_document',
   description: 'Searches the web using Safari\'s current search provider for document.',
   inputSchema: {
     type: 'object',
@@ -1014,10 +1111,6 @@ class SafariMCPServer {
       target_document_required_string: {
         type: 'string',
         description: 'The document object to access (e.g., \"front document\", \"document 1\")'
-      },
-      inParam_optional_document: {
-        type: 'string',
-        description: 'The tab that the search results should shown in.'
       },
       forParam_required_text: {
         type: 'string',
@@ -1029,7 +1122,7 @@ class SafariMCPServer {
   }
 },
           {
-  name: 'search_the_web_tab_of_window',
+  name: 'search_the_web_for_tab_of_window',
   description: 'Searches the web using Safari\'s current search provider for tab of window.',
   inputSchema: {
     type: 'object',
@@ -1041,10 +1134,6 @@ class SafariMCPServer {
       target_window_required_string: {
         type: 'string',
         description: 'The window object to access (e.g., \"front window\", \"window 1\")'
-      },
-      inParam_optional_document: {
-        type: 'string',
-        description: 'The tab that the search results should shown in.'
       },
       forParam_required_text: {
         type: 'string',
@@ -1378,7 +1467,7 @@ class SafariMCPServer {
     required: ['target_tab_required_string', 'target_window_required_string'],
     additionalProperties: false
   }
-}
+},
         ]
       }
     };
@@ -1389,9 +1478,8 @@ class SafariMCPServer {
     console.error("Handling tools/call request for:", request.params.name);
     
     try {
-      // Check app availability first (skip for static data functions)
-      const staticFunctions = ['get_all_classes', 'get_all_properties_of', 'get_parsed_sdef'];
-      if (!staticFunctions.includes(request.params.name)) {
+      // Check app availability for all functions
+      {
         const isSafariAvailable = await checkSafariAvailable();
         if (!isSafariAvailable) {
           const errorResponse = {
@@ -1419,26 +1507,29 @@ class SafariMCPServer {
         case 'open':
   result = await this.open(args.direct_parameter_required_file);
   break;
-        case 'close_document':
-  result = await this.closeDocument(args.target_document_required_string, args.saving_optional_save_options, args.saving_in_optional_file);
+        case 'close_for_document':
+  result = await this.closeForDocument(args.target_document_required_string, args.saving_optional_save_options, args.saving_in_optional_file);
   break;
-        case 'close_tab_of_window':
-  result = await this.closeTabOfWindow(args.target_tab_required_string, args.target_window_required_string, args.saving_optional_save_options, args.saving_in_optional_file);
+        case 'close_for_tab_of_window':
+  result = await this.closeForTabOfWindow(args.target_tab_required_string, args.target_window_required_string, args.saving_optional_save_options, args.saving_in_optional_file);
   break;
-        case 'close_window':
-  result = await this.closeWindow(args.target_window_required_string, args.saving_optional_save_options, args.saving_in_optional_file);
+        case 'close_for_window':
+  result = await this.closeForWindow(args.target_window_required_string, args.saving_optional_save_options, args.saving_in_optional_file);
   break;
-        case 'save_document':
-  result = await this.saveDocument(args.target_document_required_string, args.inParam_optional_file, args.as_optional_saveable_file_format);
+        case 'save_for_document':
+  result = await this.saveForDocument(args.target_document_required_string, args.inParam_optional_file, args.as_optional_saveable_file_format);
   break;
-        case 'save_window':
-  result = await this.saveWindow(args.target_window_required_string, args.inParam_optional_file, args.as_optional_saveable_file_format);
+        case 'save_for_window':
+  result = await this.saveForWindow(args.target_window_required_string, args.inParam_optional_file, args.as_optional_saveable_file_format);
   break;
-        case 'print_document':
-  result = await this.printDocument(args.target_document_required_string, args.with_properties_optional_print_settings, args.print_dialog_optional_boolean);
+        case 'print_file':
+  result = await this.printFile(args.direct_parameter_required_list_of_file, args.with_properties_optional_print_settings, args.print_dialog_optional_boolean);
   break;
-        case 'print_window':
-  result = await this.printWindow(args.target_window_required_string, args.with_properties_optional_print_settings, args.print_dialog_optional_boolean);
+        case 'print_for_document':
+  result = await this.printForDocument(args.target_document_required_string, args.with_properties_optional_print_settings, args.print_dialog_optional_boolean);
+  break;
+        case 'print_for_window':
+  result = await this.printForWindow(args.target_window_required_string, args.with_properties_optional_print_settings, args.print_dialog_optional_boolean);
   break;
         case 'quit':
   result = await this.quit(args.saving_optional_save_options);
@@ -1545,17 +1636,32 @@ class SafariMCPServer {
         case 'add_reading_list_item':
   result = await this.addReadingListItem(args.direct_parameter_required_text, args.and_preview_text_optional_text, args.with_title_optional_text);
   break;
-        case 'do_javascript_document':
-  result = await this.doJavascriptDocument(args.target_document_required_string, args.inParam_optional_document);
+        case 'do_javascript':
+  result = await this.doJavascript(args.direct_parameter_required_text);
   break;
-        case 'do_javascript_tab_of_window':
-  result = await this.doJavascriptTabOfWindow(args.target_tab_required_string, args.target_window_required_string, args.inParam_optional_document);
+        case 'do_javascript_for_document':
+  result = await this.doJavascriptForDocument(args.direct_parameter_required_text, args.target_document_required_string);
   break;
-        case 'search_the_web_document':
-  result = await this.searchTheWebDocument(args.target_document_required_string, args.inParam_optional_document, args.forParam_required_text);
+        case 'do_javascript_for_tab_of_window':
+  result = await this.doJavascriptForTabOfWindow(args.direct_parameter_required_text, args.target_tab_required_string, args.target_window_required_string);
   break;
-        case 'search_the_web_tab_of_window':
-  result = await this.searchTheWebTabOfWindow(args.target_tab_required_string, args.target_window_required_string, args.inParam_optional_document, args.forParam_required_text);
+        case 'email_contents':
+  result = await this.emailContents();
+  break;
+        case 'email_contents_for_document':
+  result = await this.emailContentsForDocument(args.target_document_required_string);
+  break;
+        case 'email_contents_for_tab_of_window':
+  result = await this.emailContentsForTabOfWindow(args.target_tab_required_string, args.target_window_required_string);
+  break;
+        case 'search_the_web':
+  result = await this.searchTheWeb(args.forParam_required_text);
+  break;
+        case 'search_the_web_for_document':
+  result = await this.searchTheWebForDocument(args.target_document_required_string, args.forParam_required_text);
+  break;
+        case 'search_the_web_for_tab_of_window':
+  result = await this.searchTheWebForTabOfWindow(args.target_tab_required_string, args.target_window_required_string, args.forParam_required_text);
   break;
         case 'show_bookmarks':
   result = await this.showBookmarks();
@@ -1663,7 +1769,7 @@ class SafariMCPServer {
 
     const script = `
       tell application "Safari"
-        open ${castedDirect_parameter}
+        open "${castedDirect_parameter}"
       end tell
     `;
 
@@ -1676,7 +1782,7 @@ class SafariMCPServer {
     };
   }
 
-  async closeDocument(target_document_required_string, saving_optional_save_options, saving_in_optional_file) {
+  async closeForDocument(target_document_required_string, saving_optional_save_options, saving_in_optional_file) {
     if (!target_document_required_string || typeof target_document_required_string !== "string") {
       throw new Error("target_document_required_string is required and must be a string");
     }
@@ -1720,7 +1826,7 @@ class SafariMCPServer {
     };
   }
 
-  async closeTabOfWindow(target_tab_required_string, target_window_required_string, saving_optional_save_options, saving_in_optional_file) {
+  async closeForTabOfWindow(target_tab_required_string, target_window_required_string, saving_optional_save_options, saving_in_optional_file) {
     if (!target_tab_required_string || typeof target_tab_required_string !== "string") {
       throw new Error("target_tab_required_string is required and must be a string");
     }
@@ -1753,7 +1859,7 @@ class SafariMCPServer {
 
     const script = `
       tell application "Safari"
-        close ${castedTab} of ${castedWindow}${saving_optional_save_options ? ' saving ' + valueForScriptSaving : ''}${saving_in_optional_file ? ' saving in ' + valueForScriptSaving_in : ''}
+        close (${castedTab} of ${castedWindow})${saving_optional_save_options ? ' saving ' + valueForScriptSaving : ''}${saving_in_optional_file ? ' saving in ' + valueForScriptSaving_in : ''}
       end tell
     `;
 
@@ -1769,7 +1875,7 @@ class SafariMCPServer {
     };
   }
 
-  async closeWindow(target_window_required_string, saving_optional_save_options, saving_in_optional_file) {
+  async closeForWindow(target_window_required_string, saving_optional_save_options, saving_in_optional_file) {
     if (!target_window_required_string || typeof target_window_required_string !== "string") {
       throw new Error("target_window_required_string is required and must be a string");
     }
@@ -1813,7 +1919,7 @@ class SafariMCPServer {
     };
   }
 
-  async saveDocument(target_document_required_string, inParam_optional_file, as_optional_saveable_file_format) {
+  async saveForDocument(target_document_required_string, inParam_optional_file, as_optional_saveable_file_format) {
     if (!target_document_required_string || typeof target_document_required_string !== "string") {
       throw new Error("target_document_required_string is required and must be a string");
     }
@@ -1857,7 +1963,7 @@ class SafariMCPServer {
     };
   }
 
-  async saveWindow(target_window_required_string, inParam_optional_file, as_optional_saveable_file_format) {
+  async saveForWindow(target_window_required_string, inParam_optional_file, as_optional_saveable_file_format) {
     if (!target_window_required_string || typeof target_window_required_string !== "string") {
       throw new Error("target_window_required_string is required and must be a string");
     }
@@ -1901,7 +2007,33 @@ class SafariMCPServer {
     };
   }
 
-  async printDocument(target_document_required_string, with_properties_optional_print_settings, print_dialog_optional_boolean) {
+  async printFile(direct_parameter_required_list_of_file, with_properties_optional_print_settings, print_dialog_optional_boolean) {
+    if (direct_parameter_required_list_of_file === undefined || direct_parameter_required_list_of_file === null) {
+      throw new Error("direct_parameter_required_list_of_file is required");
+    }
+
+    const castedDirect_parameter = direct_parameter_required_list_of_file ? castAndEscape(direct_parameter_required_list_of_file) : null;
+    const castedWith_properties = with_properties_optional_print_settings ? castAndEscape(with_properties_optional_print_settings) : null;
+    const castedPrint_dialog = print_dialog_optional_boolean ? castAndEscape(print_dialog_optional_boolean) : null;
+
+    const script = `
+      tell application "Safari"
+        print ${castedDirect_parameter}${with_properties_optional_print_settings ? ' with properties ' + castedWith_properties : ''}${print_dialog_optional_boolean ? ' print dialog ' + castedPrint_dialog : ''}
+      end tell
+    `;
+
+    const result = await executeAppleScript(script);
+    return {
+      success: result !== "Error",
+      message: result,
+      script: script,
+      direct_parameter: direct_parameter_required_list_of_file || null,
+      with_properties: with_properties_optional_print_settings || null,
+      print_dialog: print_dialog_optional_boolean || null
+    };
+  }
+
+  async printForDocument(target_document_required_string, with_properties_optional_print_settings, print_dialog_optional_boolean) {
     if (!target_document_required_string || typeof target_document_required_string !== "string") {
       throw new Error("target_document_required_string is required and must be a string");
     }
@@ -1945,7 +2077,7 @@ class SafariMCPServer {
     };
   }
 
-  async printWindow(target_window_required_string, with_properties_optional_print_settings, print_dialog_optional_boolean) {
+  async printForWindow(target_window_required_string, with_properties_optional_print_settings, print_dialog_optional_boolean) {
     if (!target_window_required_string || typeof target_window_required_string !== "string") {
       throw new Error("target_window_required_string is required and must be a string");
     }
@@ -2900,7 +3032,7 @@ class SafariMCPServer {
 
     const script = `
       tell application "Safari"
-        add reading list item ${castedDirect_parameter}${and_preview_text_optional_text ? ' and preview text ' + castedAnd_preview_text : ''}${with_title_optional_text ? ' with title ' + castedWith_title : ''}
+        add reading list item "${castedDirect_parameter}"${and_preview_text_optional_text ? ' and preview text "' + castedAnd_preview_text + '"' : ''}${with_title_optional_text ? ' with title "' + castedWith_title + '"' : ''}
       end tell
     `;
 
@@ -2915,14 +3047,39 @@ class SafariMCPServer {
     };
   }
 
-  async doJavascriptDocument(target_document_required_string, inParam_optional_document) {
+  async doJavascript(direct_parameter_required_text) {
+    if (direct_parameter_required_text === undefined || direct_parameter_required_text === null) {
+      throw new Error("direct_parameter_required_text is required");
+    }
+
+    const castedDirect_parameter = direct_parameter_required_text ? castAndEscape(direct_parameter_required_text) : null;
+
+    const script = `
+      tell application "Safari"
+        do JavaScript "${castedDirect_parameter}"
+      end tell
+    `;
+
+    const result = await executeAppleScript(script);
+    return {
+      success: result !== "Error",
+      message: result,
+      script: script,
+      direct_parameter: direct_parameter_required_text || null
+    };
+  }
+
+  async doJavascriptForDocument(direct_parameter_required_text, target_document_required_string) {
+    if (direct_parameter_required_text === undefined || direct_parameter_required_text === null) {
+      throw new Error("direct_parameter_required_text is required");
+    }
     if (!target_document_required_string || typeof target_document_required_string !== "string") {
       throw new Error("target_document_required_string is required and must be a string");
     }
 
+    const castedDirect_parameter = castAndEscape(direct_parameter_required_text);
+    const valueForScriptDirect_parameter = castedDirect_parameter && typeof castedDirect_parameter === 'string' && !castedDirect_parameter.startsWith('{') && !castedDirect_parameter.startsWith('date') ? `"${castedDirect_parameter.replace(/"/g, "'")}"` : castedDirect_parameter;
     const castedDocument = castAndEscape(target_document_required_string);
-    const castedIn = inParam_optional_document ? castAndEscape(inParam_optional_document) : null;
-    const valueForScriptIn = castedIn && typeof castedIn === 'string' && !castedIn.startsWith('{') && !castedIn.startsWith('date') ? `"${castedIn.replace(/"/g, "'")}"` : castedIn;
 
     // Helper function to build properties record from individual property parameters
     function buildPropertiesRecord(propertyParams) {
@@ -2942,7 +3099,7 @@ class SafariMCPServer {
 
     const script = `
       tell application "Safari"
-        do JavaScript ${castedDocument}${inParam_optional_document ? ' in ' + valueForScriptIn : ''}
+        do JavaScript ${valueForScriptDirect_parameter} in ${castedDocument}
       end tell
     `;
 
@@ -2951,12 +3108,114 @@ class SafariMCPServer {
       success: result !== "Error",
       message: result,
       script: script,
-      document: target_document_required_string,
-      in: inParam_optional_document || null
+      direct_parameter: direct_parameter_required_text,
+      document: target_document_required_string
     };
   }
 
-  async doJavascriptTabOfWindow(target_tab_required_string, target_window_required_string, inParam_optional_document) {
+  async doJavascriptForTabOfWindow(direct_parameter_required_text, target_tab_required_string, target_window_required_string) {
+    if (direct_parameter_required_text === undefined || direct_parameter_required_text === null) {
+      throw new Error("direct_parameter_required_text is required");
+    }
+    if (!target_tab_required_string || typeof target_tab_required_string !== "string") {
+      throw new Error("target_tab_required_string is required and must be a string");
+    }
+    if (!target_window_required_string || typeof target_window_required_string !== "string") {
+      throw new Error("target_window_required_string is required and must be a string");
+    }
+
+    const castedDirect_parameter = castAndEscape(direct_parameter_required_text);
+    const valueForScriptDirect_parameter = castedDirect_parameter && typeof castedDirect_parameter === 'string' && !castedDirect_parameter.startsWith('{') && !castedDirect_parameter.startsWith('date') ? `"${castedDirect_parameter.replace(/"/g, "'")}"` : castedDirect_parameter;
+    const castedTab = castAndEscape(target_tab_required_string);
+    const castedWindow = castAndEscape(target_window_required_string);
+
+    // Helper function to build properties record from individual property parameters
+    function buildPropertiesRecord(propertyParams) {
+      const definedProps = propertyParams.filter(p => p.value !== undefined && p.value !== null && p.value !== '');
+      if (definedProps.length === 0) return '';
+      const propStrings = definedProps.map(p => {
+        const castedValue = castAndEscape(p.value, p.type || null);
+        // For strings that got escaped, wrap in quotes and replace inner quotes
+        if (typeof castedValue === 'string' && !castedValue.startsWith('{') && !castedValue.startsWith('date')) {
+          return `${p.prop}:"${castedValue.replace(/"/g, "'")}"`;
+        }
+        // For numbers, booleans, lists, records, dates - no quotes
+        return `${p.prop}:${castedValue}`;
+      });
+      return ` with properties {${propStrings.join(', ')}}`;
+    }
+
+    const script = `
+      tell application "Safari"
+        do JavaScript ${valueForScriptDirect_parameter} in (${castedTab} of ${castedWindow})
+      end tell
+    `;
+
+    const result = await executeAppleScript(script);
+    return {
+      success: result !== "Error",
+      message: result,
+      script: script,
+      direct_parameter: direct_parameter_required_text,
+      tab: target_tab_required_string,
+      window: target_window_required_string
+    };
+  }
+
+  async emailContents() {
+    const script = `
+      tell application "Safari"
+        email contents
+      end tell
+    `;
+
+    const result = await executeAppleScript(script);
+    return {
+      success: result !== "Error",
+      message: result,
+      script: script
+    };
+  }
+
+  async emailContentsForDocument(target_document_required_string) {
+    if (!target_document_required_string || typeof target_document_required_string !== "string") {
+      throw new Error("target_document_required_string is required and must be a string");
+    }
+
+    const castedDocument = castAndEscape(target_document_required_string);
+
+    // Helper function to build properties record from individual property parameters
+    function buildPropertiesRecord(propertyParams) {
+      const definedProps = propertyParams.filter(p => p.value !== undefined && p.value !== null && p.value !== '');
+      if (definedProps.length === 0) return '';
+      const propStrings = definedProps.map(p => {
+        const castedValue = castAndEscape(p.value, p.type || null);
+        // For strings that got escaped, wrap in quotes and replace inner quotes
+        if (typeof castedValue === 'string' && !castedValue.startsWith('{') && !castedValue.startsWith('date')) {
+          return `${p.prop}:"${castedValue.replace(/"/g, "'")}"`;
+        }
+        // For numbers, booleans, lists, records, dates - no quotes
+        return `${p.prop}:${castedValue}`;
+      });
+      return ` with properties {${propStrings.join(', ')}}`;
+    }
+
+    const script = `
+      tell application "Safari"
+        email contents of ${castedDocument}
+      end tell
+    `;
+
+    const result = await executeAppleScript(script);
+    return {
+      success: result !== "Error",
+      message: result,
+      script: script,
+      document: target_document_required_string
+    };
+  }
+
+  async emailContentsForTabOfWindow(target_tab_required_string, target_window_required_string) {
     if (!target_tab_required_string || typeof target_tab_required_string !== "string") {
       throw new Error("target_tab_required_string is required and must be a string");
     }
@@ -2966,8 +3225,6 @@ class SafariMCPServer {
 
     const castedTab = castAndEscape(target_tab_required_string);
     const castedWindow = castAndEscape(target_window_required_string);
-    const castedIn = inParam_optional_document ? castAndEscape(inParam_optional_document) : null;
-    const valueForScriptIn = castedIn && typeof castedIn === 'string' && !castedIn.startsWith('{') && !castedIn.startsWith('date') ? `"${castedIn.replace(/"/g, "'")}"` : castedIn;
 
     // Helper function to build properties record from individual property parameters
     function buildPropertiesRecord(propertyParams) {
@@ -2987,7 +3244,7 @@ class SafariMCPServer {
 
     const script = `
       tell application "Safari"
-        do JavaScript ${castedTab} of ${castedWindow}${inParam_optional_document ? ' in ' + valueForScriptIn : ''}
+        email contents of (${castedTab} of ${castedWindow})
       end tell
     `;
 
@@ -2997,45 +3254,20 @@ class SafariMCPServer {
       message: result,
       script: script,
       tab: target_tab_required_string,
-      window: target_window_required_string,
-      in: inParam_optional_document || null
+      window: target_window_required_string
     };
   }
 
-
-  async searchTheWebDocument(target_document_required_string, inParam_optional_document, forParam_required_text) {
-    if (!target_document_required_string || typeof target_document_required_string !== "string") {
-      throw new Error("target_document_required_string is required and must be a string");
-    }
+  async searchTheWeb(forParam_required_text) {
     if (forParam_required_text === undefined || forParam_required_text === null) {
       throw new Error("forParam_required_text is required");
     }
 
-    const castedDocument = castAndEscape(target_document_required_string);
-    const castedIn = inParam_optional_document ? castAndEscape(inParam_optional_document) : null;
-    const valueForScriptIn = castedIn && typeof castedIn === 'string' && !castedIn.startsWith('{') && !castedIn.startsWith('date') ? `"${castedIn.replace(/"/g, "'")}"` : castedIn;
     const castedFor = forParam_required_text ? castAndEscape(forParam_required_text) : null;
-    const valueForScriptFor = castedFor && typeof castedFor === 'string' && !castedFor.startsWith('{') && !castedFor.startsWith('date') ? `"${castedFor.replace(/"/g, "'")}"` : castedFor;
-
-    // Helper function to build properties record from individual property parameters
-    function buildPropertiesRecord(propertyParams) {
-      const definedProps = propertyParams.filter(p => p.value !== undefined && p.value !== null && p.value !== '');
-      if (definedProps.length === 0) return '';
-      const propStrings = definedProps.map(p => {
-        const castedValue = castAndEscape(p.value, p.type || null);
-        // For strings that got escaped, wrap in quotes and replace inner quotes
-        if (typeof castedValue === 'string' && !castedValue.startsWith('{') && !castedValue.startsWith('date')) {
-          return `${p.prop}:"${castedValue.replace(/"/g, "'")}"`;
-        }
-        // For numbers, booleans, lists, records, dates - no quotes
-        return `${p.prop}:${castedValue}`;
-      });
-      return ` with properties {${propStrings.join(', ')}}`;
-    }
 
     const script = `
       tell application "Safari"
-        search the web ${castedDocument}${inParam_optional_document ? ' in ' + valueForScriptIn : ''} for ${valueForScriptFor}
+        search the web for "${castedFor}"
       end tell
     `;
 
@@ -3044,27 +3276,19 @@ class SafariMCPServer {
       success: result !== "Error",
       message: result,
       script: script,
-      document: target_document_required_string,
-      in: inParam_optional_document || null,
       for: forParam_required_text || null
     };
   }
 
-  async searchTheWebTabOfWindow(target_tab_required_string, target_window_required_string, inParam_optional_document, forParam_required_text) {
-    if (!target_tab_required_string || typeof target_tab_required_string !== "string") {
-      throw new Error("target_tab_required_string is required and must be a string");
-    }
-    if (!target_window_required_string || typeof target_window_required_string !== "string") {
-      throw new Error("target_window_required_string is required and must be a string");
+  async searchTheWebForDocument(target_document_required_string, forParam_required_text) {
+    if (!target_document_required_string || typeof target_document_required_string !== "string") {
+      throw new Error("target_document_required_string is required and must be a string");
     }
     if (forParam_required_text === undefined || forParam_required_text === null) {
       throw new Error("forParam_required_text is required");
     }
 
-    const castedTab = castAndEscape(target_tab_required_string);
-    const castedWindow = castAndEscape(target_window_required_string);
-    const castedIn = inParam_optional_document ? castAndEscape(inParam_optional_document) : null;
-    const valueForScriptIn = castedIn && typeof castedIn === 'string' && !castedIn.startsWith('{') && !castedIn.startsWith('date') ? `"${castedIn.replace(/"/g, "'")}"` : castedIn;
+    const castedDocument = castAndEscape(target_document_required_string);
     const castedFor = forParam_required_text ? castAndEscape(forParam_required_text) : null;
     const valueForScriptFor = castedFor && typeof castedFor === 'string' && !castedFor.startsWith('{') && !castedFor.startsWith('date') ? `"${castedFor.replace(/"/g, "'")}"` : castedFor;
 
@@ -3086,7 +3310,55 @@ class SafariMCPServer {
 
     const script = `
       tell application "Safari"
-        search the web ${castedTab} of ${castedWindow}${inParam_optional_document ? ' in ' + valueForScriptIn : ''} for ${valueForScriptFor}
+        search the web for ${valueForScriptFor} in ${castedDocument}
+      end tell
+    `;
+
+    const result = await executeAppleScript(script);
+    return {
+      success: result !== "Error",
+      message: result,
+      script: script,
+      document: target_document_required_string,
+      for: forParam_required_text || null
+    };
+  }
+
+  async searchTheWebForTabOfWindow(target_tab_required_string, target_window_required_string, forParam_required_text) {
+    if (!target_tab_required_string || typeof target_tab_required_string !== "string") {
+      throw new Error("target_tab_required_string is required and must be a string");
+    }
+    if (!target_window_required_string || typeof target_window_required_string !== "string") {
+      throw new Error("target_window_required_string is required and must be a string");
+    }
+    if (forParam_required_text === undefined || forParam_required_text === null) {
+      throw new Error("forParam_required_text is required");
+    }
+
+    const castedTab = castAndEscape(target_tab_required_string);
+    const castedWindow = castAndEscape(target_window_required_string);
+    const castedFor = forParam_required_text ? castAndEscape(forParam_required_text) : null;
+    const valueForScriptFor = castedFor && typeof castedFor === 'string' && !castedFor.startsWith('{') && !castedFor.startsWith('date') ? `"${castedFor.replace(/"/g, "'")}"` : castedFor;
+
+    // Helper function to build properties record from individual property parameters
+    function buildPropertiesRecord(propertyParams) {
+      const definedProps = propertyParams.filter(p => p.value !== undefined && p.value !== null && p.value !== '');
+      if (definedProps.length === 0) return '';
+      const propStrings = definedProps.map(p => {
+        const castedValue = castAndEscape(p.value, p.type || null);
+        // For strings that got escaped, wrap in quotes and replace inner quotes
+        if (typeof castedValue === 'string' && !castedValue.startsWith('{') && !castedValue.startsWith('date')) {
+          return `${p.prop}:"${castedValue.replace(/"/g, "'")}"`;
+        }
+        // For numbers, booleans, lists, records, dates - no quotes
+        return `${p.prop}:${castedValue}`;
+      });
+      return ` with properties {${propStrings.join(', ')}}`;
+    }
+
+    const script = `
+      tell application "Safari"
+        search the web for ${valueForScriptFor} in (${castedTab} of ${castedWindow})
       end tell
     `;
 
@@ -3097,7 +3369,6 @@ class SafariMCPServer {
       script: script,
       tab: target_tab_required_string,
       window: target_window_required_string,
-      in: inParam_optional_document || null,
       for: forParam_required_text || null
     };
   }
@@ -3126,7 +3397,7 @@ class SafariMCPServer {
 
     const script = `
       tell application "Safari"
-        show extensions preferences ${castedDirect_parameter}
+        show extensions preferences "${castedDirect_parameter}"
       end tell
     `;
 
@@ -3240,11 +3511,8 @@ class SafariMCPServer {
     const castedValue = castAndEscape(value_required_tab, 'tab');
     // Determine value format for AppleScript
     let valueForScript;
-    if (typeof castedValue === 'string' && !castedValue.startsWith('{') && !castedValue.startsWith('date')) {
-      valueForScript = `"${castedValue}"`; // Wrap strings in quotes
-    } else {
-      valueForScript = castedValue; // Use as-is for numbers, booleans, lists, records
-    }
+    // Property type 'tab' is a class reference - treat as object
+    valueForScript = castedValue; // Object reference - no quotes
 
     const script = `
       tell application "Safari"
@@ -3589,10 +3857,6 @@ class SafariMCPServer {
       window: target_window_required_string
     };
   }
-
-
-
-
 
   sendResponse(response) {
     const responseStr = JSON.stringify(response);

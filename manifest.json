@@ -33,31 +33,35 @@
       "description": "Open a document."
     },
     {
-      "name": "close_document",
+      "name": "close_for_document",
       "description": "Close a document."
     },
     {
-      "name": "close_tab_of_window",
+      "name": "close_for_tab_of_window",
       "description": "Close a tab of window."
     },
     {
-      "name": "close_window",
+      "name": "close_for_window",
       "description": "Close a window."
     },
     {
-      "name": "save_document",
+      "name": "save_for_document",
       "description": "Save a document."
     },
     {
-      "name": "save_window",
+      "name": "save_for_window",
       "description": "Save a window."
     },
     {
-      "name": "print_document",
+      "name": "print_file",
+      "description": "Print a document. (file input)"
+    },
+    {
+      "name": "print_for_document",
       "description": "Print a document."
     },
     {
-      "name": "print_window",
+      "name": "print_for_window",
       "description": "Print a window."
     },
     {
@@ -201,19 +205,39 @@
       "description": "Add a new Reading List item with the given URL. Allows a custom title and preview text to be specified."
     },
     {
-      "name": "do_javascript_document",
+      "name": "do_javascript",
+      "description": "Applies a string of JavaScript code to a document. (without target specification)"
+    },
+    {
+      "name": "do_javascript_for_document",
       "description": "Applies a string of JavaScript code to a document."
     },
     {
-      "name": "do_javascript_tab_of_window",
+      "name": "do_javascript_for_tab_of_window",
       "description": "Applies a string of JavaScript code to a tab of window."
     },
     {
-      "name": "search_the_web_document",
+      "name": "email_contents",
+      "description": "Emails the contents of a tab. (without target specification)"
+    },
+    {
+      "name": "email_contents_for_document",
+      "description": "Emails the contents of a document."
+    },
+    {
+      "name": "email_contents_for_tab_of_window",
+      "description": "Emails the contents of a tab."
+    },
+    {
+      "name": "search_the_web",
+      "description": "Searches the web using Safari's current search provider. (without target specification)"
+    },
+    {
+      "name": "search_the_web_for_document",
       "description": "Searches the web using Safari's current search provider for document."
     },
     {
-      "name": "search_the_web_tab_of_window",
+      "name": "search_the_web_for_tab_of_window",
       "description": "Searches the web using Safari's current search provider for tab of window."
     },
     {
